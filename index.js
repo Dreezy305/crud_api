@@ -89,3 +89,10 @@ app.delete("/api/books/:id", (req, res) => {
 
   res.send(book);
 });
+
+const validateBook = () => {
+  const schema = {
+    title: joi.string().min(3).required,
+  };
+  return joi.validate(book, schema);
+};
