@@ -33,3 +33,22 @@ app.get("/api/books/:id", (req, res) => {
       );
   res.send(book);
 });
+
+// CREAT REQUEST HANDLER
+app.post("/api/books", (req, res) => {
+  const { error } = req.body;
+  if (error) {
+    res
+      .status(404)
+      .send(
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
+      );
+  } else {
+    const book = {
+      id: books.length + 1,
+      title: req.body.title,
+    };
+    books.push(book);
+    res.send(book);
+  }
+});
