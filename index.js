@@ -34,7 +34,7 @@ app.get("/api/books/:id", (req, res) => {
   res.send(book);
 });
 
-// CREAT REQUEST HANDLER
+// CREATE REQUEST HANDLER
 app.post("/api/books", (req, res) => {
   const { error } = req.body;
   if (error) {
@@ -71,4 +71,9 @@ app.put("/api/books/:id", (req, res) => {
   }
   book.title = req.body.title;
   res.send(book);
+});
+
+// DELETE REQUEST HANDLER
+app.delete("/api/books/:id", (req, res) => {
+  const book = books.find((c) => c.id === parseInt(req.params.id));
 });
