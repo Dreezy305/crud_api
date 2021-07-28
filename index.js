@@ -64,7 +64,7 @@ app.put("/api/books/:id", (req, res) => {
       );
   }
 
-  const { error } = validateBook(req.body);
+  const { error } = validateBook(req.body); //validate book is a function that checks fo whether the book is present or not
   if (error) {
     res.status(400).send(error.details[0].message);
     return;
@@ -83,4 +83,9 @@ app.delete("/api/books/:id", (req, res) => {
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
       );
   }
+
+  const Index = books.indexOf(book);
+  books.splice(Index, 1);
+
+  res.send(book);
 });
