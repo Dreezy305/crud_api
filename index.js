@@ -4,8 +4,10 @@ const app = express();
 
 app.use(express.json());
 
-app.listen(5000, () => {
-  console.log(`Server is running on port 5000.`);
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
 });
 
 const books = [
@@ -56,13 +58,12 @@ app.post("/api/books", (req, res) => {
 // UPDATE REQUEST HANDLERS
 app.put("/api/books/:id", (req, res) => {
   const book = books.find((c) => c.id === parseInt(req.params.id));
-  if (!book) {
+  if (!book)
     res
       .status(404)
       .send(
-        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Not Found!! </h2>'
       );
-  }
 
   const { error } = validateBook(req.body); //validate book is a function that checks fo whether the book is present or not
   if (error) {
@@ -90,9 +91,9 @@ app.delete("/api/books/:id", (req, res) => {
   res.send(book);
 });
 
-const validateBook = () => {
+function validateBook() {
   const schema = {
     title: joi.string().min(3).required,
   };
   return joi.validate(book, schema);
-};
+}
