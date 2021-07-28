@@ -22,3 +22,14 @@ app.get("/", (req, res) => {
 app.get("/api/books", (req, res) => {
   res.send(books);
 });
+
+app.get("/api/books/:id", (req, res) => {
+  const book = books.find((c) => c.id === parseInt(req.params.id));
+  if (!book)
+    res
+      .status(404)
+      .send(
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
+      );
+  res.send(book);
+});
